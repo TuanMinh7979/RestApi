@@ -22,7 +22,7 @@ public class ItemController {
     @PostMapping
     public ResponseEntity<ItemDto> addItem(@RequestBody final ItemDto itemDto) {
         //cái này cần có @Valid để check và nếu có gì không ổn thì BadRequestException
-        Item item = itemService.addItem(Item.from(itemDto));
+        Item item = itemService.addItem(Item.from(itemDto), itemDto.getPlainCartDto().getId());
         //itemDto se la requestDto(có thể chứa id của Cart để chuyển thành Item)
         //nếu không thì cũng sẽ truyền riêng id theo kiều (dto, id) và trong mapper cũng sẽ phải (dto, id)->bad
         //hoặc là dùng Map<> thì lại dài dòng.

@@ -8,17 +8,20 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 @Service
 @RequiredArgsConstructor
 public class ItemService {
 
     private final ItemRepo itemRepo;
+    private final CartService cartService;
 
-    public Item addItem(Item item) {
-        return itemRepo.save(item);
+    public Item addItem(Item item, Long minorCartId) {
+        Item itemsaved = itemRepo.save(item);
+        //V là đảm k lặp code và nhất quán
+        cartService.addItemtoCart(minorCartId, itemsaved.getId());
+
+        return item;
     }
 
     public List<Item> getItems() {

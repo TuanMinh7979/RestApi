@@ -50,12 +50,28 @@ CartService {
     }
 
     @Transactional
-    public Cart addItemtoCart(Long cartId, Long itemId) {
+    public Cart addItemtoCart(Long cartId, Long minorItemId) {
         //ont to many thi co the thiet ket add many to one trong Service cua one luon
         Cart cart = getCart(cartId);
         //gọi service chứ repo sẽ không nên nằm ở service khác ngoài service của nó
-        Item item = itemService.getItem(itemId);
+        Item item = itemService.getItem(minorItemId);
         cart.addItem(item);
+
+        //TH1 chủ thể cập nhật là Cart
+        item.setCart(cart);
+
+        //(*)
+        //Dto bên Item chịu trách nhiệm chính:
+        //-GET
+        // +là trả về cho client id của category
+        //trong ô cập nhật ta sẽ lấy category đó đưa lên đầu trong select option
+        //+ category name sẽ trả về trong TH không query tất cả category.
+        //-POST: id của category SỬ DỤNG TRONG   addItemToCategory và trogn removeItemFromCart
+        //tức là khi gửi data lên cate_id và item, ta gọi 2 service, service save item và service
+        //addItemToCategory
+
+        //TA CÓ THỂ GỌI HÀM NÀY TRONG 2 TH: TH1 update category này(thêm hoặc xóa ra khỏi category chủ
+        // thể là category) TH 2: update sản phẩm từ và sử dụng trong service của sản phầm
         return cart;
     }
 
