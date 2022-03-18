@@ -66,10 +66,13 @@ CartService {
         // +là trả về cho client id của category
         //trong ô cập nhật ta sẽ lấy category đó đưa lên đầu trong select option
         //+ category name sẽ trả về trong TH không query tất cả category.
-        //-POST: id của category SỬ DỤNG TRONG   addItemToCategory và trogn removeItemFromCart
-        //tức là khi gửi data lên cate_id và item, ta gọi 2 service, service save item và service
-        //addItemToCategory
 
+        //Cập nhật cả cart và item trong cùng service (lưu ý inject service vòng)
+        //Tùy thuộc vào chủ thể nghiệp vụ thì ta chọn chủ thể cho service này:
+        //trong th product và cate, thì với cách thiết kế này sẽ phải gọi 2 service
+        //1 service save product 1 service lưu product vào cate.
+        //nếu thay vào đó ta sử dụng setCate bên ProductService thì ta chỉ cần gọi
+        //1 service saveProduct ta có thể itemsaved đã save và cart.addItemList(itemsaved)
 
         return cart;
     }
