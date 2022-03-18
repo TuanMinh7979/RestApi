@@ -22,6 +22,9 @@ public class CartDto {
         cartDto.setId(cart.getId());
         cartDto.setName(cart.getName());
         //itemDto >< item
+      //  System.out.println("SZE LAF" + cart.getItemList());
+        //Khong lay len dc do lazy, muon lay ta phai viet service ben many theo cartid
+
         cartDto.setItemsDto(cart.getItemList().stream().map(ItemDto::from).collect(Collectors.toList()));
         return cartDto;
     }

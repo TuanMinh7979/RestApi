@@ -12,9 +12,15 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
+@RequestMapping("cart")
 @RequiredArgsConstructor
 public class CartController {
     private final CartService cartService;
+
+    @GetMapping("getWith")
+    public List<Cart> getCartWithItemList() {
+        return cartService.getCartsWithItem();
+    }
 
     @PostMapping
     public ResponseEntity<CartDto> addCart(@RequestBody CartDto cartDto) {
@@ -35,7 +41,8 @@ public class CartController {
     @GetMapping(value = "{id}")
     public ResponseEntity<CartDto> getCart(@PathVariable Long id) {
         // đã bat ngoại lệ bên trong service ta chỉ việc trả về
-        return new ResponseEntity<>(CartDto.from(cartService.getCart(id)), HttpStatus.OK);
+        Cart cart = cartService.getCart(id);
+        return new ResponseEntity<>(CartDto.from(cart), HttpStatus.OK);
 
     }
 

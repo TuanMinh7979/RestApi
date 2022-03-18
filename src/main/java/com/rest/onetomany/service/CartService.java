@@ -70,8 +70,7 @@ CartService {
         //tức là khi gửi data lên cate_id và item, ta gọi 2 service, service save item và service
         //addItemToCategory
 
-        //TA CÓ THỂ GỌI HÀM NÀY TRONG 2 TH: TH1 update category này(thêm hoặc xóa ra khỏi category chủ
-        // thể là category) TH 2: update sản phẩm từ và sử dụng trong service của sản phầm
+
         return cart;
     }
 
@@ -84,6 +83,12 @@ CartService {
         }
         cart.removeItem(item);
         return cart;
+    }
+
+    public List<Cart> getCartsWithItem() {
+        List<Cart> carts = cartRepo.findWithItemList();
+        System.out.println("___________________SIZE LA" + carts.size());
+        return carts;
     }
 
 

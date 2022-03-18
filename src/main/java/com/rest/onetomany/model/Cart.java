@@ -1,7 +1,9 @@
 package com.rest.onetomany.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.rest.onetomany.model.Dto.CartDto;
 import com.rest.onetomany.model.Dto.PlainCartDto;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,15 +13,18 @@ import java.util.List;
 
 @Entity
 @Table(name = "carts")
-@Getter
-@Setter
+@Data
+
 public class Cart {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cart")
-//    @JoinColumn(name="card_id")
+
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "cart_id")
+    @JsonIgnore
     private List<Item> itemList = new ArrayList<>();
 
     //ĐỂ DÀNH DÙNG BÊN SERVICE VÀ CÁC BÊN KHÁC
