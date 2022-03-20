@@ -18,13 +18,7 @@ public class ItemService {
 
     public Item addItem(Item item) {
         Item itemsaved = itemRepo.save(item);
-        // Không thể gọi cartService ở đây do bị loop service
-        //v nên ta cần gọi 2 api riêng
-        //cũng còn tùy trường hợp ta làm việc chính với many hay one mà thiết kế 1 bên chính
-        //sẽ save hay update cả hai luôn :
-        //vd many làm chủ thể chính
-        // itemSv(cateSv, setCart()): setCart(cateSv.get(id)) và cate.itemList.add(itemSv.save())
-        //cartService.addItemtoCart(minorCartId, itemsaved.getId());
+
 
         return item;
     }
@@ -35,17 +29,16 @@ public class ItemService {
     }
 
     public Item getItem(Long id) {
-        //get put delete exception handle thì bắt đầu tử hàm này
+
         return itemRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
     }
-    //post thì là badRequestException() là đủ cho cả 4
-    //getAll, không cần bắt cũng k sao , getBy(bắt)->put, delete, post(bắt)
+
 
     public Item deleteItem(Long id) {
         Item item = getItem(id);
         itemRepo.delete(item);
         return item;
-        //để còn map về dto
+
     }
 
     @Transactional

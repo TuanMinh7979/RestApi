@@ -53,10 +53,7 @@ public class ItemController {
         }
 
         //render se don request neu status la 200 thi tra ve cho ngdung la thanh , nguoc lai thi la that bai
-        //Không cần mesage rườm rà trong TH này
-        //tat cả những gì cần bắt ta đã bắt or getOne trong service và post và put trong controller rồi
-        //exeption khi lấy ra và exception khi đưa vào ta đã bắt hết
-        //phát sinh lỗi khác thì sẽ là lỗi hệ thống cũng sẽ có handler lo chuyện đó.
+
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
